@@ -55,6 +55,9 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+
+
+
   AppData? appdata;
   @override
   void initState() {
@@ -107,11 +110,38 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: _incrementCounter,
+            tooltip: 'Increment',
+            child: Icon(Icons.home),
+          ),
+          FloatingActionButton(
+            onPressed: addRecord,
+            tooltip: 'Post my record',
+            child: Icon(Icons.add),
+          )
+        ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  void addRecord() {
+
+    Map<String,dynamic> newRecord = {
+      'title': "My Name Hashir",
+      'body': "This is my new Body",
+      'userId': 10
+    };
+
+    Map<String,String> header = {
+      'Content-type': 'application/json; charset=UTF-8'
+    };
+
+
+    appdata!.sendPost("https://jsonplaceholder.typicode.com/posts", newRecord, header);
+
   }
 }

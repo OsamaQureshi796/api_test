@@ -40,5 +40,35 @@ class AppData extends GetxController{
       }
     }
 
+    sendPost(String? url,Map<String,dynamic> body, Map<String,String> headers)async{
+
+      try{
+        http.Response? response = await NetworkHandler.postMethodCall(url: url,headers: headers,body: body);
+
+        print(response!.statusCode);
+        print("My Data responce ${response.body}");
+
+        if(response.statusCode == 201){
+          ///------- Successfully got data
+
+
+          Get.snackbar('Wow', "Successfully send data",colorText: Colors.white,backgroundColor: Colors.red);
+
+
+
+        }else{
+          ///------- Issue
+          Get.snackbar('Failed', response.body,colorText: Colors.white,backgroundColor: Colors.red);
+          print(response.body);
+        }
+
+      }catch(e){
+        Get.snackbar('Failed', "$e",colorText: Colors.white,backgroundColor: Colors.red);
+        print(e);
+      }
+
+
+    }
+
 
 }
