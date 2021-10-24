@@ -40,4 +40,47 @@ class NetworkHandler {
     }
   }
 
+
+  static Future<http.Response?> putMethodCall(
+      {String? url, Map<String, String>? headers,Map<String,dynamic>? body}) async {
+
+    var myData = json.encode(body);
+
+
+    try {
+
+      final response = await http.put(
+          Uri.tryParse(
+            url!,
+          )!,
+          headers: headers,
+          body: myData
+      );
+      return response;
+    } catch (error) {
+      print("Error ha $error");
+    }
+  }
+
+
+  static Future<http.Response?> deleteMethodCall(
+      {String? url}) async {
+
+
+
+    try {
+
+      final response = await http.delete(
+          Uri.tryParse(
+            url!,
+          )!,
+
+      );
+      return response;
+    } catch (error) {
+      print("Error ha $error");
+    }
+  }
+
+
 }
